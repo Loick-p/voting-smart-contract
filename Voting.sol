@@ -154,6 +154,14 @@ contract Voting is Ownable {
         return proposals[winningProposalId].description;
     }
 
+    // Get the vote of a voter
+    function getVote(address _address) external view returns (string memory) {
+        // Check if votes is tallied
+        require(votingStatus == WorkflowStatus.VotesTallied, "The votes aren't tallied.");
+        
+        return proposals[voters[_address].votedProposalId].description;
+    }
+
     // Change worfklow status
     function changeWorkflowStatus(WorkflowStatus newStatus) internal  {
         WorkflowStatus previousStatus = votingStatus;
