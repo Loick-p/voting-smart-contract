@@ -155,10 +155,10 @@ contract Voting is Ownable {
     }
 
     // Get the vote of a voter
-    function getVote(address _address) external view returns (string memory) {
+    function getVote(address _address) external view checkVoterIsRegistered(msg.sender) returns (string memory) {
         // Check if votes is tallied
         require(votingStatus == WorkflowStatus.VotesTallied, "The votes aren't tallied.");
-        
+
         return proposals[voters[_address].votedProposalId].description;
     }
 
